@@ -4,15 +4,16 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
 CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
 CREATE SCHEMA IF NOT EXISTS `phpbb` DEFAULT CHARACTER SET utf8 ;
+USE `mydb` ;
 
 -- -----------------------------------------------------
--- Table `mydb`.`Tokens`
+-- Table `mydb`.`tokens`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`Tokens` (
-  `Tokens` VARCHAR(10) NOT NULL ,
-  `Asignado` TINYINT(1)  NOT NULL ,
-  `fechaDeVencimiento` TIMESTAMP NOT NULL ,
-  PRIMARY KEY (`Tokens`) )
+CREATE  TABLE IF NOT EXISTS `mydb`.`tokens` (
+  `token` VARCHAR(10) NOT NULL ,
+  `asignado` TINYINT(1)  NOT NULL ,
+  `fecha_vencimiento` TIMESTAMP NOT NULL ,
+  PRIMARY KEY (`token`) )
 ENGINE = InnoDB;
 
 
@@ -20,46 +21,47 @@ ENGINE = InnoDB;
 -- Table `mydb`.`conferencia`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `mydb`.`conferencia` (
-  `idConferencia` INT NOT NULL AUTO_INCREMENT ,
-  `fechaDeRealizacion` DATE NOT NULL ,
+  `id_conferencia` INT NOT NULL AUTO_INCREMENT ,
+  `fecha_realizacion` DATE NOT NULL ,
   `tema` VARCHAR(50) NOT NULL ,
-  PRIMARY KEY (`idConferencia`) )
+  PRIMARY KEY (`id_conferencia`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`criterios_de_evaluacion`
+-- Table `mydb`.`criterios_evaluacion`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`criterios_de_evaluacion` (
-  `idcriterios_de_evaluacion` INT NOT NULL AUTO_INCREMENT ,
-  `Nombre` VARCHAR(45) NOT NULL ,
-  `Descripción` VARCHAR(45) NULL ,
-  PRIMARY KEY (`idcriterios_de_evaluacion`) )
+CREATE  TABLE IF NOT EXISTS `mydb`.`criterios_evaluacion` (
+  `id_criterios_evaluacion` INT NOT NULL AUTO_INCREMENT ,
+  `nombre` VARCHAR(45) NOT NULL ,
+  `descripcion` VARCHAR(45) NULL ,
+  PRIMARY KEY (`id_criterios_evaluacion`) )
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `mydb`.`criterios_de_evaluacion_has_Conferencia`
+-- Table `mydb`.`criterios_evaluacion_has_conferencia`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `mydb`.`criterios_de_evaluacion_has_Conferencia` (
-  `criterios_de_evaluacion_idcriterios_de_evaluacion` INT NOT NULL ,
-  `Conferencia_idConferencia` INT NOT NULL ,
+CREATE  TABLE IF NOT EXISTS `mydb`.`criterios_evaluacion_has_conferencia` (
+  `criterios_evaluacion_idcriterios_de_evaluacion` INT NOT NULL ,
+  `conferencia_id_conferencia` INT NOT NULL ,
   `puntuacion` INT NOT NULL ,
-  PRIMARY KEY (`criterios_de_evaluacion_idcriterios_de_evaluacion`, `Conferencia_idConferencia`) ,
-  INDEX `fk_criterios_de_evaluacion_has_Conferencia_criterios_de_evalu` (`criterios_de_evaluacion_idcriterios_de_evaluacion` ASC) ,
-  INDEX `fk_criterios_de_evaluacion_has_Conferencia_Conferencia1` (`Conferencia_idConferencia` ASC) ,
+  PRIMARY KEY (`criterios_evaluacion_idcriterios_de_evaluacion`, `conferencia_id_conferencia`) ,
+  INDEX `fk_criterios_de_evaluacion_has_Conferencia_criterios_de_evalu` (`criterios_evaluacion_idcriterios_de_evaluacion` ASC) ,
+  INDEX `fk_criterios_de_evaluacion_has_Conferencia_Conferencia1` (`conferencia_id_conferencia` ASC) ,
   CONSTRAINT `fk_criterios_de_evaluacion_has_Conferencia_criterios_de_evalu`
-    FOREIGN KEY (`criterios_de_evaluacion_idcriterios_de_evaluacion` )
-    REFERENCES `mydb`.`criterios_de_evaluacion` (`idcriterios_de_evaluacion` )
+    FOREIGN KEY (`criterios_evaluacion_idcriterios_de_evaluacion` )
+    REFERENCES `mydb`.`criterios_evaluacion` (`id_criterios_evaluacion` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_criterios_de_evaluacion_has_Conferencia_Conferencia1`
-    FOREIGN KEY (`Conferencia_idConferencia` )
-    REFERENCES `mydb`.`conferencia` (`idConferencia` )
+    FOREIGN KEY (`conferencia_id_conferencia` )
+    REFERENCES `mydb`.`conferencia` (`id_conferencia` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+USE `phpbb` ;
 
 -- -----------------------------------------------------
 -- Table `phpbb`.`phpbb_users`
@@ -153,13 +155,13 @@ COLLATE = utf8_bin;
 
 
 -- -----------------------------------------------------
--- Table `phpbb`.`phpbb_users_has_Conferencia`
+-- Table `phpbb`.`phpbb_users_has_conferencia`
 -- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `phpbb`.`phpbb_users_has_Conferencia` (
+CREATE  TABLE IF NOT EXISTS `phpbb`.`phpbb_users_has_conferencia` (
   `phpbb_users_user_id` MEDIUMINT(8) UNSIGNED NOT NULL ,
   `Conferencia_idConferencia` INT NOT NULL ,
-  `TokenAsignado` TINYINT(1)  NOT NULL ,
-  `RolEnLaRelacion` VARCHAR(1) NOT NULL ,
+  `token_asignado` TINYINT(1)  NOT NULL ,
+  `rol_relacion` VARCHAR(1) NOT NULL ,
   PRIMARY KEY (`phpbb_users_user_id`, `Conferencia_idConferencia`) ,
   INDEX `fk_phpbb_users_has_Conferencia_phpbb_users` (`phpbb_users_user_id` ASC) ,
   INDEX `fk_phpbb_users_has_Conferencia_Conferencia1` (`Conferencia_idConferencia` ASC) ,
@@ -170,7 +172,7 @@ CREATE  TABLE IF NOT EXISTS `phpbb`.`phpbb_users_has_Conferencia` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_phpbb_users_has_Conferencia_Conferencia1`
     FOREIGN KEY (`Conferencia_idConferencia` )
-    REFERENCES `mydb`.`conferencia` (`idConferencia` )
+    REFERENCES `mydb`.`conferencia` (`id_conferencia` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = MyISAM
@@ -182,15 +184,3 @@ COLLATE = utf8_bin;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
--- -----------------------------------------------------
--- Data for table `mydb`.`criterios_de_evaluacion`
--- -----------------------------------------------------
-SET AUTOCOMMIT=0;
-INSERT INTO `mydb`.`criterios_de_evaluacion` (`idcriterios_de_evaluacion`, `Nombre`, `Descripción`) VALUES (NULL, 'Contenido', NULL);
-INSERT INTO `mydb`.`criterios_de_evaluacion` (`idcriterios_de_evaluacion`, `Nombre`, `Descripción`) VALUES (NULL, 'Apropiación', NULL);
-INSERT INTO `mydb`.`criterios_de_evaluacion` (`idcriterios_de_evaluacion`, `Nombre`, `Descripción`) VALUES (NULL, 'Laboratorio', NULL);
-INSERT INTO `mydb`.`criterios_de_evaluacion` (`idcriterios_de_evaluacion`, `Nombre`, `Descripción`) VALUES (NULL, 'Diapositivas', NULL);
-INSERT INTO `mydb`.`criterios_de_evaluacion` (`idcriterios_de_evaluacion`, `Nombre`, `Descripción`) VALUES (NULL, 'Oratoria', NULL);
-
-COMMIT;
