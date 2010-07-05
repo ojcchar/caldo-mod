@@ -9,7 +9,7 @@ class token {
 	function token() {
 		$this->token=null';
 		$this->fecha_vencimiento=null;
-		$this->asignado=false;
+		$this->asignado=null;
 	}
 	
 	public function get_asignado() {

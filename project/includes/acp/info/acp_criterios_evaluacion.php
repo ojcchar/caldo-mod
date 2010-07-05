@@ -7,7 +7,7 @@ class criterios_evaluacion {
 	private $descripcion;
 
 	public function criterios_evaluacion() {
-		$this->id_criterio_evaluacion=-1;
+		$this->id_criterio_evaluacion=null;
 		$this->nombre=null;
 		$this->descripcion=null;
 	}
@@ -24,15 +24,15 @@ class criterios_evaluacion {
 		return $this->descripcion;
 	}
 
-	public function set_id_criterio_evaluacion($id=0) {
+	public function set_id_criterio_evaluacion($id) {
 		$this->id_criterio_evaluacion=$id;
 	}
 
-	public function set_nombre($nombre="") {
+	public function set_nombre($nombre) {
 		$this->nombre=$nombre;
 	}
 
-	public function set_descripcion($desc="") {
+	public function set_descripcion($desc) {
 		$this->descripcion=$desc;
 	}
 
