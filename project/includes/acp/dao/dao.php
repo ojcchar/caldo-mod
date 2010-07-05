@@ -1,15 +1,21 @@
 <?php
 
-interface dao{
+abstract class dao{
 	
-	public function crear($objeto);
+	private $db;
 	
-	public function actualizar($objeto);
-	
-	public function eliminar($objeto);
-	
-	public function consultar($consulta);
-	
+	public function dao($db){
+		$this->db=$db;
+	}
+
+	abstract public function crear($objeto);
+
+	abstract public function actualizar($objeto);
+
+	abstract public function eliminar($objeto);
+
+	abstract public function consultar($consulta);
+
 }
 
 

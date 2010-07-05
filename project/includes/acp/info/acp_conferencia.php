@@ -6,6 +6,7 @@ class conferencia {
 	private $fecha_realizacion;
 	private $tema;
 	private $numero_votos;
+	private $id_foro;
 
 	function conferencia() {
 		$this->id_conferencia=0;
@@ -13,7 +14,15 @@ class conferencia {
 		$this->tema=0;
 		$this->numero_votos=0;
 	}
-	
+
+	public function set_id_foro($id_foro=0) {
+		return $this->id_foro=$id_foro;
+	}
+
+	public function get_id_foro() {
+		return $this->id_foro;
+	}
+
 	public function set_numero_votos($num=0) {
 		return $this->numero_votos=$num;
 	}
