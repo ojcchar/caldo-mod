@@ -14,7 +14,7 @@ abstract class dao{
 
 	abstract public function eliminar($objeto);
 
-	abstract public function consultar($consulta);
+	abstract public function consultar($objeto);
 
 }
 

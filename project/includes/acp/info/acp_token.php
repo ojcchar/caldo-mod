@@ -7,8 +7,8 @@ class token {
 	private $fecha_vencimiento;
 
 	function token() {
-		$this->token='';
-		$this->fecha_vencimiento=new DateTime();
+		$this->token=null';
+		$this->fecha_vencimiento=null;
 		$this->asignado=false;
 	}
 	
@@ -33,9 +33,6 @@ class token {
 	}
 
 	public function set_fecha_vencimiento($fecha_vencimiento) {
-		if ($fecha_vencimiento==null) {
-			$fecha_vencimiento=new DateTime();
-		}
 		$this->fecha_vencimiento=$fecha_vencimiento;
 	}
 

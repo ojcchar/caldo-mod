@@ -9,10 +9,10 @@ class conferencia {
 	private $id_foro;
 
 	function conferencia() {
-		$this->id_conferencia=0;
-		$this->fecha_realizacion=new DateTime();
-		$this->tema=0;
-		$this->numero_votos=0;
+		$this->id_conferencia=null;
+		$this->fecha_realizacion=null;
+		$this->tema=null;
+		$this->numero_votos=null;
 	}
 
 	public function set_id_foro($id_foro=0) {
@@ -48,9 +48,6 @@ class conferencia {
 	}
 
 	public function set_fecha_realizacion($fecha_realizacion ) {
-		if ($fecha_realizacion==null) {
-			$fecha_realizacion=new DateTime();
-		}
 		$this->fecha_realizacion=$fecha_realizacion;
 	}
 

@@ -7,9 +7,9 @@ class criterios_evaluacion {
 	private $descripcion;
 
 	public function criterios_evaluacion() {
-		$this->id_criterio_evaluacion=0;
-		$this->nombre='';
-		$this->descripcion='';
+		$this->id_criterio_evaluacion=-1;
+		$this->nombre=null;
+		$this->descripcion=null;
 	}
 
 	public function get_id_criterio_evaluacion() {
