@@ -1,5 +1,11 @@
 <?php
 
+define('IN_PHPBB', true);
+$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : './';
+$phpEx = substr(strrchr(__FILE__, '.'), 1);
+include($phpbb_root_path . 'common.' . $phpEx);
+
+
 class token {
 
 	private $token;
@@ -7,7 +13,7 @@ class token {
 	private $fecha_vencimiento;
 
 	function token() {
-		$this->token='';
+		$this->token=md5(gen_rand_string(15));
 		$this->fecha_vencimiento=new DateTime();
 		$this->asignado=false;
 	}
