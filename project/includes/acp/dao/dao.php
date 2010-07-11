@@ -5,6 +5,7 @@ abstract class dao{
 	private $db;
 	
 	public function dao($db){
+		global $db;
 		$this->db=$db;
 	}
 

@@ -11,7 +11,7 @@ class conferencia {
 	function conferencia() {
 		$this->id_conferencia=0;
 		$this->fecha_realizacion=new DateTime();
-		$this->tema=0;
+		$this->tema='';
 		$this->numero_votos=0;
 	}
 
